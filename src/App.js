@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
 function App() {
+  const [playerSelection, setPlayerSelection] = useState(null);
+  
+  const compSelection = Math.floor(Math.random() * 3);
+
+  const counterMap = {
+    0: 1,
+    1: 2,
+    2: 0,
+  };
+
+  const determineResult = () => {
+    if (counterMap[playerSelection] === compSelection) {
+      return "Player wins.";
+    } else if (playerSelection === compSelection) {
+      return "Tie.";
+    }
+    return "Comp wins.";
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>Result: {playerSelection != null && determineResult()}</div>
+      <button onClick={() => setPlayerSelection(0)}>Rock</button>
+      <button onClick={() => setPlayerSelection(1)}>Paper</button>
+      <button onClick={() => setPlayerSelection(2)}>Scissors</button>
+    </>
   );
 }
 
